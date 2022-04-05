@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import ListingCard from "./ListingCard";
 
-function ListingsContainer() {
+function ListingsContainer({searchTerm}) {
   // Set up useState for storing listings array
   const [listingsState, setListingsState] = useState([])
 
@@ -12,7 +12,17 @@ function ListingsContainer() {
     fetch(`${url}`)
       .then(r => r.json())
       .then(listingsData => setListingsState(listingsData))
-  })
+  },[listingsState])
+
+  useEffect(() => {
+    if (searchTerm !== "") {
+      setListingsState(listingsState.filter((listing) => {
+        return listing.description.contains(searchTerm)
+      }))
+      } else {
+      setListingsState([])
+    }
+  },[searchTerm])
 
   function handleDelete(id) {
     fetch(`${url}/${id}`, {

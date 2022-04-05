@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 
-function Search({searchTerm}) {
+function Search({updateSearchTerm}) {
   const [searchState, setSearchState] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault();
-    searchTerm(searchState);
+    updateSearchTerm(searchState);
   }
 
   function handleSearchChange(value) {
