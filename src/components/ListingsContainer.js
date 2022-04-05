@@ -23,8 +23,7 @@ function ListingsContainer() {
         const updatedListings = listingsState.filter(
           listing => listing.id !== id);
         setListingsState(updatedListings);
-      })
-      .catch(alert("Sorry, an error occurred when attempting to delete listing."));
+      });
   }
 
   return (
