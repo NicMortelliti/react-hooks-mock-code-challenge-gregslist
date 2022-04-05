@@ -12,12 +12,15 @@ function ListingsContainer() {
       .then(listingsData => setListingsState(listingsData))
   })
 
+  function handleDelete(ID) {
+    console.log(ID)
+  }
 
   return (
     <main>
       <ul className="cards">
         {listingsState.map(listing => {
-          return < ListingCard key={listing.id} listingProps={listing}/>})}
+          return < ListingCard key={listing.id} listingProps={listing} onDeleteClick={()=>handleDelete(listing.id)}/>})}
       </ul>
     </main>
   );
