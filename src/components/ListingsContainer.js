@@ -17,7 +17,7 @@ function ListingsContainer() {
     <main>
       <ul className="cards">
         {listingsState.map(listing => {
-          return < ListingCard listingProps={listing}/>})}
+          return < ListingCard key={listing.id} listingProps={listing}/>})}
       </ul>
     </main>
   );
