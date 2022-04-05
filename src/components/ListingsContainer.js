@@ -5,15 +5,25 @@ function ListingsContainer() {
   // Set up useState for storing listings array
   const [listingsState, setListingsState] = useState([])
 
+  const url = "http://localhost:6001/listings"
+
   // Initial population of listings
   useEffect(() => {
-    fetch("http://localhost:6001/listings")
+    fetch(`${url}`)
       .then(r => r.json())
       .then(listingsData => setListingsState(listingsData))
   })
 
-  function handleDelete(ID) {
-    console.log(ID)
+  function handleDelete(id) {
+    fetch(`${url}/${id}`, {
+      method: "DELETE",
+    })
+      .then(r => r.json())
+      .then(() => {
+        const updatedListings = listingsState.filter(
+          listing => listing.id !== id);
+        setListingsState(updatedListings);
+      });
   }
 
   return (
