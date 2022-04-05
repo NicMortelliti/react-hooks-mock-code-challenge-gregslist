@@ -12,17 +12,7 @@ function ListingsContainer({searchTerm}) {
     fetch(`${url}`)
       .then(r => r.json())
       .then(listingsData => setListingsState(listingsData))
-  },[listingsState])
-
-  useEffect(() => {
-    if (searchTerm !== "") {
-      setListingsState(listingsState.filter((listing) => {
-        return listing.description.contains(searchTerm)
-      }))
-      } else {
-      setListingsState([])
-    }
-  },[searchTerm])
+  },[])
 
   function handleDelete(id) {
     fetch(`${url}/${id}`, {
@@ -39,7 +29,14 @@ function ListingsContainer({searchTerm}) {
   return (
     <main>
       <ul className="cards">
-        {listingsState.map(listing => {
+        {listingsState.filter((listing) => {
+          if (searchTerm === "") {
+            return listing
+          } else if (listing.description.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return listing
+          }
+          return null
+        }).map(listing => {
           return < ListingCard key={listing.id} listingProps={listing} onDeleteClick={()=>handleDelete(listing.id)}/>})}
       </ul>
     </main>
